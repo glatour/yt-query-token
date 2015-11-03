@@ -13,6 +13,7 @@ var pipes = {};
 
 pipes.buildVendorsScripts = function() {
   var vendorsJs = gulp.src(bowerFiles('**/*.js'))
+    .pipe(plugins.order(['jquery.js', 'Bacon.js']))
     .pipe(plugins.concat('vendors.js'))
     .pipe(plugins.uglify())
     .pipe(plugins.rename('vendors.min.js'))
@@ -78,6 +79,10 @@ gulp.task('html', function() {
   gulp.src('./*.html')
     .pipe(connect.reload());
 });
+
+gulp.task('build', function() {
+  pipes.build();
+})
 
 gulp.task('watch', function() {
   plugins.livereload.listen();
