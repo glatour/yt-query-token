@@ -13,9 +13,9 @@ var pipes = {};
 
 pipes.buildVendorsScripts = function() {
   var vendorsJs = gulp.src(bowerFiles('**/*.js'))
-    .pipe(plugins.order(['jquery.js', 'Bacon.js']))
+    .pipe(plugins.order(['jquery.js', 'Bacon.js', 'angular.js', 'angular-bacon.js']))
     .pipe(plugins.concat('vendors.js'))
-    .pipe(plugins.uglify())
+    //.pipe(plugins.uglify())
     .pipe(plugins.rename('vendors.min.js'))
     .pipe(gulp.dest(paths.dist));
 
