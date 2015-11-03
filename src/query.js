@@ -12,7 +12,7 @@
           '<div>' +
           '{{searchQuery}}' +
           '</div>',
-        controller: queryController,
+        controller: ['$scope', queryController],
         scope: {
           tokens: '='
         },

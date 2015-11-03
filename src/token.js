@@ -1,82 +1,83 @@
 (function() {
   angular
     .module('app')
-    .directive('token', function($timeout) {
-      return {
-        restrict: 'E',
-        scope: {
-          token: '='
-        },
-        require: '^query',
-        template: '<div class="query-token"> ' +
-          '<div  ng-model="token.key" ' +
-          'class="query-token-key input" ' +
-          'contenteditable ' +
-          'focus-me="ui.isKeyFocused" />' +
-          '<div  ng-show="token.value !== \'\'">:</div> ' +
-          '<div  ng-model="token.value" ' +
-          'class="query-token-value input" ' +
-          'contenteditable ' +
-          'focus-me="ui.isValueFocused"/> ' +
-          '<div  class="query-token-remove" ' +
-          'ng-show="token.value !== \'\' && token.key !== \'\'" ' +
-          'ng-click="removeToken()">x</div> ' +
-          '</div>',
-        controller: tokenController,
-        link: function(scope, ele, attrs, queryCtrl) {
-          scope.queryCtrl = queryCtrl;
-          queryCtrl.registerToken(scope);
-          scope.ui = {
-            isValueFocused: false
-          };
+    .directive('token', ['$timeout',
+      function($timeout) {
+        return {
+          restrict: 'E',
+          scope: {
+            token: '='
+          },
+          require: '^query',
+          template: '<div class="query-token"> ' +
+            '<div  ng-model="token.key" ' +
+            'class="query-token-key input" ' +
+            'contenteditable ' +
+            'focus-me="ui.isKeyFocused" />' +
+            '<div  ng-show="token.value !== \'\'">:</div> ' +
+            '<div  ng-model="token.value" ' +
+            'class="query-token-value input" ' +
+            'contenteditable ' +
+            'focus-me="ui.isValueFocused"/> ' +
+            '<div  class="query-token-remove" ' +
+            'ng-show="token.value !== \'\' && token.key !== \'\'" ' +
+            'ng-click="removeToken()">x</div> ' +
+            '</div>',
+          controller: ['$scope', tokenController],
+          link: function(scope, ele, attrs, queryCtrl) {
+            scope.queryCtrl = queryCtrl;
+            queryCtrl.registerToken(scope);
+            scope.ui = {
+              isValueFocused: false
+            };
 
-          scope.selectIfEmpty = function() {
-            if (scope.token.key === '') {
-              scope.ui.isKeyFocused = true;
-              scope.$apply();
-              return true;
-            } else if (scope.token.value === '') {
-              scope.ui.isValueFocused = true;
-              scope.$apply();
-              return true;
+            scope.selectIfEmpty = function() {
+              if (scope.token.key === '') {
+                scope.ui.isKeyFocused = true;
+                scope.$apply();
+                return true;
+              } else if (scope.token.value === '') {
+                scope.ui.isValueFocused = true;
+                scope.$apply();
+                return true;
+              }
+              return false;
             }
-            return false;
+
+            scope.removeToken = function() {
+              queryCtrl.removeToken(scope);
+            }
+
+            $timeout(function() {
+              if (scope.token.manuallyAdded)
+                $(ele).find('.query-token-key')[0].focus();
+            }, 1);
+
+            $(ele.children('.query-token-value')[0])
+              .asEventStream('focus')
+              .onValue(function(it) {
+                if (it.target.innerHTML === '')
+                  it.target.innerHTML = '&nbsp;';
+              });
+
+            $(ele.find('.query-token-value')[0])
+              .asEventStream('keydown')
+              .onValue(function(it) {
+                if (it.target.innerHTML === '&nbsp;')
+                  it.target.innerHTML = '';
+                else if (it.target.innerHTML.length === 1 && it.keyCode === 8)
+                  it.target.innerHTML = '&nbsp;';
+                else if (((it.keyCode === 9 && !it.shiftKey) || it.keyCode === 13) && it.target.innerHTML.length > 0) {
+                  queryCtrl.addToken(true);
+                  queryCtrl.selectNextToken(scope);
+                  it.preventDefault();
+                  it.stopPropagation();
+                } else
+                  queryCtrl.addToken(false);
+              });
           }
-
-          scope.removeToken = function() {
-            queryCtrl.removeToken(scope);
-          }
-
-          $timeout(function() {
-            if (scope.token.manuallyAdded)
-              $(ele).find('.query-token-key')[0].focus();
-          }, 1);
-
-          $(ele.children('.query-token-value')[0])
-            .asEventStream('focus')
-            .onValue(function(it) {
-              if (it.target.innerHTML === '')
-                it.target.innerHTML = '&nbsp;';
-            });
-
-          $(ele.find('.query-token-value')[0])
-            .asEventStream('keydown')
-            .onValue(function(it) {
-              if (it.target.innerHTML === '&nbsp;')
-                it.target.innerHTML = '';
-              else if (it.target.innerHTML.length === 1 && it.keyCode === 8)
-                it.target.innerHTML = '&nbsp;';
-              else if (((it.keyCode === 9 && !it.shiftKey) || it.keyCode === 13) && it.target.innerHTML.length > 0) {
-                queryCtrl.addToken(true);
-                queryCtrl.selectNextToken(scope);
-                it.preventDefault();
-                it.stopPropagation();
-              } else
-                queryCtrl.addToken(false);
-            });
         }
-      }
-    });
+    }]);
 
   function tokenController($scope) {
     var vm = this;
