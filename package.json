@@ -1,0 +1,26 @@
+{
+  "name": "testiframes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "main-bower-files": "~2.9.0",
+    "gulp-load-plugins": "~1.0.0",
+    "gulp-angular-filesort": "~1.1.1",
+    "gulp-uglify": "~1.4.2",
+    "gulp-concat": "~2.6.0",
+    "gulp-angular-templatecache": "~1.8.0",
+    "gulp-rename": "~1.2.2"
+  },
+  "dependencies": {
+    "gulp-watch": "~4.3.5",
+    "gulp-livereload": "~3.8.1"
+  }
+}

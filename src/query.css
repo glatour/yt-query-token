@@ -1,0 +1,46 @@
+body {
+   font-family: 'GIRegular';
+   font-weight: normal;
+   font-style: normal;
+}
+
+query {
+}
+
+token {
+}
+
+.query-input {
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	flex: 1 1 auto;
+	padding: 8px;
+}
+.query-token {
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid #ccc;
+	margin: 0px 4px;
+}
+
+
+.query-token-key.input, .query-token-value.input {
+}
+
+.query-token-key {
+	padding: 0 4px;
+}
+
+.query-token-value {
+	margin-left: 8px;
+}
+
+.query-token.done {
+
+}
+
+.query-token-remove {
+	margin-left: 8px;
+}

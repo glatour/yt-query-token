@@ -1,0 +1,24 @@
+{
+  "name": "yt-query-token",
+  "homepage": "https://github.com/glatour/yt-query-token",
+  "authors": [
+    "Guillaume <guillaume.latour@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bacon": "~2.0.0",
+    "angular": "~1.4.7",
+    "jquery": "~2.1.4"
+  }
+}

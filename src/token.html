@@ -1,0 +1,14 @@
+<div class="query-token">
+	<div 	ng-model="token.key"
+				class="query-token-key input"
+				contenteditable
+				focus-me="ui.isKeyFocused" />
+	<div 	ng-show="token.value !== ''">:</div>
+	<div 	ng-model="token.value"
+				class="query-token-value input"
+				contenteditable
+				focus-me="ui.isValueFocused"/>
+	<div 	class="query-token-remove"
+				ng-show="token.value !== '' && token.key !== ''"
+				ng-click="removeToken()">x</div>
+</div>
