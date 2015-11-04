@@ -29,18 +29,18 @@ pipes.buildAppScripts = function() {
   var appJs = gulp.src(paths.src + '/*.js');
 
   var appHtml = gulp.src(paths.src + '/*.html')
-    .pipe(plugins.htmlmin({
-      collapseWhitespace: true
-    }))
+    //.pipe(plugins.htmlmin({
+    //  collapseWhitespace: true
+    //}))
     .pipe(plugins.angularTemplatecache('html-templates.js', {
       root: '/query',
       module: pkg.name
     }));
 
   return es.merge([appJs, appHtml])
-    .pipe(plugins.order(['query.js']))
+    .pipe(plugins.order(['query.js', 'token.js', 'content-editable.js', 'focus-me.js']))
     .pipe(plugins.concat('yt-query-token.js'))
-    .pipe(plugins.uglify())
+    //.pipe(plugins.uglify())
     .pipe(plugins.rename('yt-query-token.min.js'))
     .pipe(gulp.dest(paths.dist));
 }
@@ -63,8 +63,13 @@ gulp.task('html', function() {
     .pipe(connect.reload());
 });
 
-gulp.task('build', function() {
+gulp.task('build', ['clean'], function() {
   pipes.build();
+})
+
+gulp.task('clean', function() {
+  gulp.src(paths.dist + '/*.js')
+    .pipe(plugins.clean());
 })
 
 gulp.task('watch', function() {
