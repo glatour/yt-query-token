@@ -29,6 +29,9 @@ pipes.buildAppScripts = function() {
   var appJs = gulp.src(paths.src + '/*.js');
 
   var appHtml = gulp.src(paths.src + '/*.html')
+    .pipe(plugins.htmlmin({
+      collapseWhitespace: true
+    }))
     .pipe(plugins.angularTemplatecache('html-templates.js', {
       module: pkg.name
     }));
