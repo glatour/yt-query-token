@@ -17,19 +17,11 @@ pipes.buildVendorsScripts = function() {
   var vendorsJs = gulp.src(bowerFiles('**/*.js'))
     .pipe(plugins.order(['jquery.js', 'Bacon.js', 'angular.js', 'angular-bacon.js']))
     .pipe(plugins.concat('vendors.js'))
-    //.pipe(plugins.uglify())
+    .pipe(plugins.uglify())
     .pipe(plugins.rename('vendors.min.js'))
     .pipe(gulp.dest(paths.dist));
 
   return vendorsJs;
-}
-
-pipes.buildHtml = function() {
-  var appHtml = gulp.src(paths.src + '/*.html')
-    .pipe(plugins.angularTemplatecache('html-templates.js', {
-      //root: '/dist/app'
-    }))
-    .pipe(gulp.dest(paths.dist));
 }
 
 pipes.buildAppScripts = function() {
@@ -39,13 +31,12 @@ pipes.buildAppScripts = function() {
   var appHtml = gulp.src(paths.src + '/*.html')
     .pipe(plugins.angularTemplatecache('html-templates.js', {
       module: pkg.name
-      //root: '/dist/app'
     }));
 
   return es.merge([appJs, appHtml])
     .pipe(plugins.order(['query.js']))
     .pipe(plugins.concat('yt-query-token.js'))
-    //.pipe(plugins.uglify())
+    .pipe(plugins.uglify())
     .pipe(plugins.rename('yt-query-token.min.js'))
     .pipe(gulp.dest(paths.dist));
 }
