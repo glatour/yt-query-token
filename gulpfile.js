@@ -7,7 +7,7 @@ var gulp = require('gulp'),
   pkg = require('./package.json');
 
 var paths = {
-  src: './src',
+  src: './src/query',
   dist: './dist'
 }
 
@@ -33,6 +33,7 @@ pipes.buildAppScripts = function() {
       collapseWhitespace: true
     }))
     .pipe(plugins.angularTemplatecache('html-templates.js', {
+      root: '/query',
       module: pkg.name
     }));
 

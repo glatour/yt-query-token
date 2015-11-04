@@ -1,7 +1,14 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="query.css">
+  <style type="text/css">
+    body {
+       font-family: 'GIRegular';
+       font-weight: normal;
+       font-style: normal;
+    }
+  </style>
+  <link rel="stylesheet" href="query/query.css">
   <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/glacial-indifference" type="text/css"/>
 </head>
 
@@ -22,6 +29,11 @@
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-bacon/dist/angular-bacon.js"></script>
 
+    <script src="query/query.js"></script>
+    <script src="query/token.js"></script>
+    <script src="query/content-editable.js"></script>
+    <script src="query/focus-me.js"></script>
+
     <script>
     angular.module('app', ['yt-query-token'])
         .controller('ctrl', function($scope) {
@@ -30,10 +42,6 @@
             })
         });
     </script>
-    <script src="query.js"></script>
-    <script src="token.js"></script>
-    <script src="content-editable.js"></script>
-    <script src="focus-me.js"></script>
 </body>
 
 </html>
