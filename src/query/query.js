@@ -4,7 +4,7 @@
     .directive('query', function() {
       return {
         restrict: 'E',
-        templateUrl: 'query/query.html',
+        templateUrl: '/query/query.html',
         controller: ['$scope', queryController],
         scope: {
           tokens: '='

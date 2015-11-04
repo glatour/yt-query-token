@@ -9,7 +9,7 @@
             token: '='
           },
           require: '^query',
-          templateUrl: 'query/token.html',
+          templateUrl: '/query/token.html',
           controller: ['$scope', tokenController],
           link: function(scope, ele, attrs, queryCtrl) {
             scope.queryCtrl = queryCtrl;
