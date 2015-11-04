@@ -7,6 +7,7 @@
 
 <body>
     <div ng-app="app" ng-controller="ctrl">
+
       <query tokens="myTokens"></query>
 
       <span ng-repeat="token in tokens">
@@ -20,63 +21,19 @@
     <script src="/bower_components/bacon/dist/Bacon.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-bacon/dist/angular-bacon.js"></script>
+
     <script>
-    angular.module('app', ["angular-bacon"])
-        .directive('focusMe', function($timeout, $parse) {
-          return {
-            link: function(scope, element, attrs) {
-              var model = $parse(attrs.focusMe);
-              scope.$watch(model, function(value) {
-                if(value === true) {
-                  $timeout(function() {
-                    element[0].focus();
-                  });
-                }
-              });
-              element.bind('blur', function() {
-                 scope.$apply(model.assign(scope, false));
-              });
-            }
-          };
-        })
-        .
-directive('contenteditable', ['$sce', function($sce) {
-  return {
-    restrict: 'A',
-    require: '?ngModel',
-    link: function(scope, element, attrs, ngModel) {
-      if (!ngModel) return;
-      ngModel.$render = function() {
-        element.html($sce.trustAsHtml(ngModel.$viewValue || ''));
-      };
-      element.on('blur keyup change', function() {
-        scope.$evalAsync(read);
-      });
-      read();
-      function read() {
-        var html = element.html();
-        if ( attrs.stripBr && html == '<br>' ) {
-          html = '';
-        }
-        ngModel.$setViewValue(html);
-      }
-    }
-  };
-}])
+    angular.module('app', ['yt-query-token'])
         .controller('ctrl', function($scope) {
             $scope.$watchCollection('myTokens', function (newValue) {
               console.log(newValue);
             })
-        })
-        .directive('instruction', function() {
-            return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {}
-            }
-        })
+        });
     </script>
     <script src="query.js"></script>
     <script src="token.js"></script>
+    <script src="content-editable.js"></script>
+    <script src="focus-me.js"></script>
 </body>
 
 </html>

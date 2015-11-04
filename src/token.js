@@ -1,6 +1,6 @@
 (function() {
   angular
-    .module('app')
+    .module('yt-query-token')
     .directive('token', ['$timeout',
       function($timeout) {
         return {
@@ -9,20 +9,7 @@
             token: '='
           },
           require: '^query',
-          template: '<div class="query-token"> ' +
-            '<div  ng-model="token.key" ' +
-            'class="query-token-key input" ' +
-            'contenteditable ' +
-            'focus-me="ui.isKeyFocused" />' +
-            '<div  ng-show="token.value !== \'\'">:</div> ' +
-            '<div  ng-model="token.value" ' +
-            'class="query-token-value input" ' +
-            'contenteditable ' +
-            'focus-me="ui.isValueFocused"/> ' +
-            '<div  class="query-token-remove" ' +
-            'ng-show="token.value !== \'\' && token.key !== \'\'" ' +
-            'ng-click="removeToken()">x</div> ' +
-            '</div>',
+          templateUrl: 'token.html',
           controller: ['$scope', tokenController],
           link: function(scope, ele, attrs, queryCtrl) {
             scope.queryCtrl = queryCtrl;

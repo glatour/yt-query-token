@@ -1,17 +1,10 @@
 (function() {
   angular
-    .module('app')
+    .module('yt-query-token', ["angular-bacon"])
     .directive('query', function() {
       return {
         restrict: 'E',
-        template: '<div class="query-input">' +
-          '<div ng-repeat="token in _tokens">' +
-          '<token token="token"></token>' +
-          '</div>' +
-          '</div>' +
-          '<div>' +
-          '{{searchQuery}}' +
-          '</div>',
+        templateUrl: 'query.html',
         controller: ['$scope', queryController],
         scope: {
           tokens: '='
